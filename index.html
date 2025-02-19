@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Formatter</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        input, button { margin: 10px; padding: 10px; }
+        #output { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>URL Formatter</h2>
+    <input type="text" id="urlInput" placeholder="Enter URL here" size="50">
+    <button onclick="formatUrl()">Format</button>
+    <div id="output"></div>
+
+    <script>
+        function formatUrl() {
+            const input = document.getElementById("urlInput").value;
+            const regex = /archives\/(\w+)\/(p\d{16})/;
+            const match = input.match(regex);
+            
+            if (match) {
+                const channelId = match[1];
+                const threadId = match[2].slice(0, 10);
+                const messageId = match[2].slice(10);
+                const formatted = `${channelId}:${threadId}.${messageId}`;
+                document.getElementById("output").innerText = formatted;
+            } else {
+                document.getElementById("output").innerText = "Invalid URL format.";
+            }
+        }
+    </script>
+</body>
+</html>
